@@ -5,7 +5,7 @@
 ## Про структуру проекта
 1. src: находятся файлы .py и product.db
 2. static: находятся папки css, img, js
-3. templates: находятся шаблоны html
+3. templates: находятся шаблоны html<br/>
 **Подробнее про src**
 1. main.py - запуск сервера
 2. router.py - описаны маршруты
