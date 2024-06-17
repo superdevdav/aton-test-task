@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/auth.css" type="text/css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/static/img/favicons/login.ico"
+    />
+    <title>Авторизация</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="blur-box"></div>
+      <h1>Login</h1>
+    </div>
+    <section>
+      <div class="container">
+        <div id="auth_div">
+          <form class="form_auth_style" action="/panel" method="post">
+            <div class="input-container">
+              <input type="login" name="login" placeholder="Логин" required />
+            </div>
+            <div class="input_container">
+              <input
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                required
+              />
+            </div>
+            <button type="submit" name="form_auth_submit">Войти</button>
+          </form>
+        </div>
+      </div>
+    </section>
+    <div id="myModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close"></span>
+        <p id="error-message">
+          Неправильные данные. Пожалуйста, проверьте ваш логин и пароль.
+        </p>
+      </div>
+    </div>
+    <script>
+      var modal = document.getElementById("myModal");
+
+      var span = document.getElementsByClassName("close")[0];
+
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      var error = "{{ error|default('false') }}";
+      if (error === "true") {
+        modal.style.display = "block";
+      }
+    </script>
+  </body>
+</html>

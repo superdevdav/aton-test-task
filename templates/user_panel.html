@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/user_panel.css" />
+    <link rel="icon" type="image/x-icon" href="/static/img/favicons/user-panel.ico">
+    <title>Панель управления</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Здравствуйте, {{ name }}! Это панель управления</h1>
+      <div id="customersData">
+        <h2>Таблица с вашими клиентами</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Номер счета</th>
+              <th>Фамилия</th>
+              <th>Имя</th>
+              <th>Отчество</th>
+              <th>Дата рождения</th>
+              <th>ИНН</th>
+              <th>ФИО ответственного</th>
+              <th>Статус</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for customer in customers %}
+            <tr>
+              <td>{{ customer.account_number }}</td>
+              <td>{{ customer.surname }}</td>
+              <td>{{ customer.name }}</td>
+              <td>{{ customer.patrynomic }}</td>
+              <td>{{ customer.birth_date }}</td>
+              <td>{{ customer.inn }}</td>
+              <td>{{ customer.full_name_responsible }}</td>
+              <td>
+                {{ customer.status }}
+                <a href="" class="status-link-{{ customer.id }}"
+                  ><img
+                    src="/static/img/edit_icon.png"
+                    alt="изменить статус"
+                    width="30"
+                    height="30"
+                /></a>
+              </td>
+            </tr>
+            <!-- modal window -->
+            <div class="modal modal-{{ customer.id }}">
+              <div class="modal-window">
+                <h3>
+                  Изменить статус клиента - {{ customer.surname }} {{
+                  customer.name }} {{ customer.patrynomic }}
+                </h3>
+                <button class="btn-close">X</button>
+                <div class="btn-client-container">
+                  <form action="/update_status" method="post">
+                    <input
+                      type="hidden"
+                      name="customer_id"
+                      value="{{ customer.id }}"
+                    />
+                    <input type="hidden" name="status" value="В работе" />
+                    <button class="btn-client" type="submit">В работе</button>
+                  </form>
+                  <form action="/update_status" method="post">
+                    <input
+                      type="hidden"
+                      name="customer_id"
+                      value="{{ customer.id }}"
+                    />
+                    <input type="hidden" name="status" value="Отказ" />
+                    <button class="btn-client" type="submit">Отказ</button>
+                  </form>
+                  <form action="/update_status" method="post">
+                    <input
+                      type="hidden"
+                      name="customer_id"
+                      value="{{ customer.id }}"
+                    />
+                    <input
+                      type="hidden"
+                      name="status"
+                      value="Сделка закрыта"
+                    />
+                    <button class="btn-client" type="submit">
+                      Сделка закрыта
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <div class="overlay"></div>
+            </div>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var modals = document.querySelectorAll(".modal");
+      var btns = document.querySelectorAll("[class^='status-link-']");
+      var closeBtns = document.querySelectorAll(".btn-close");
+
+      btns.forEach(function (btn, index) {
+        btn.onclick = function (event) {
+          event.preventDefault();
+          modals[index].style.display = "flex";
+        };
+      });
+
+      closeBtns.forEach(function (closeBtn) {
+        closeBtn.onclick = function () {
+          var modal = closeBtn.closest(".modal");
+          modal.style.display = "none";
+        };
+      });
+
+      var overlays = document.querySelectorAll(".overlay");
+      overlays.forEach(function (overlay) {
+        overlay.onclick = function () {
+          var modal = overlay.closest(".modal");
+          modal.style.display = "none";
+        };
+      });
+    });
+  </script>
+</html>
