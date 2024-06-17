@@ -1,4 +1,4 @@
-# Используемые технологии
+## Используемые технологии
 1. Backend: Python (FastAPI, SQLAlchemy, Jinja2)
 2. Frontend: HTML, CSS, JS
 3. Database: SQlite
