@@ -1,7 +1,7 @@
 # Используемые технологии
 1. Backend: Python (FastAPI, SQLAlchemy, Jinja2)
 2. Frontend: HTML, CSS, JS
-3. Database: sqlite
+3. Database: SQlite
 ## Про структуру проекта
 1. src: находятся файлы .py и product.db
 2. static: находятся папки css, img, js
